@@ -2,13 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle, Texture, RenderTarget } from 'ogl';
 
 import './DitherVeil.css';
+import heroPhoto from '../assets/images/faisal.png';
 
-const DEFAULT_SRC = 'https://images.unsplash.com/photo-1737071371043-761e02b1ef95?q=80&w=1400&auto=format&fit=crop';
+const DEFAULT_SRC = heroPhoto;
 
 const ORDERED = { bayer: 0, noise: 1, lines: 2 };
 
 const KERNELS = {
-  atkinson: [
+  atkinson: [   
     [1, 0, 1 / 8],
     [2, 0, 1 / 8],
     [-1, 1, 1 / 8],
@@ -347,7 +348,9 @@ void main() {
   vec3 color = mix(uInk, mix(uInk, uPaper, level), max(framed, uKey));
   vec3 backdrop = mix(uInk, uPaper, toned(uMatte));
   vec2 photoUv = imageUv(vUv);
-  vec3 raw = texture(tImage, photoUv).rgb;
+  vec4 rawSample = texture(tImage, photoUv);
+  vec3 raw = rawSample.rgb;
+  float imgAlpha = within(photoUv) * rawSample.a;
   float plain = uKey * (1.0 - smoothstep(0.05, 0.22, distance(raw, uMatte)));
   vec3 photo = mix(mix(uInk, backdrop, uKey), mix(raw, backdrop, plain), within(photoUv));
 
@@ -362,7 +365,7 @@ void main() {
   vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
   float spread = length((cellUv - 0.5) * aspect) / length(aspect * 0.5);
   float appear = step(spread * 0.72 + bayer(cell + vec2(3.0, 5.0)) * 0.28, uIntro * 1.001);
-  fragColor = vec4(mix(uInk, color, appear), 1.0);
+  fragColor = vec4(mix(uInk, color, appear), appear * imgAlpha);
 }
 `;
 
@@ -425,7 +428,8 @@ const DitherVeil = ({
     const maxDpr = window.innerWidth <= 640 ? 1 : 1.5;
     const renderer = new Renderer({
       dpr: Math.min(window.devicePixelRatio || 1, maxDpr),
-      alpha: false,
+      alpha: true,
+      premultipliedAlpha: false,
       antialias: false
     });
     const gl = renderer.gl;
@@ -680,7 +684,7 @@ const DitherVeil = ({
           image.naturalHeight,
           s.fit === 'contain'
         );
-        const scale = Math.max(1, s.zoom);
+        const scale = Math.max(0.1, s.zoom);
         viewUniforms.uCover.value = [cover[0] / scale, cover[1] / scale];
       }
       let patternIndex = ORDERED[s.pattern] ?? 0;

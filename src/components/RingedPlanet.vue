@@ -45,7 +45,53 @@ onMounted(() => {
       styles.getPropertyValue('--fg').trim()
     return v || '#2a2926'
   }
+
+  const isDarkTheme = () => {
+    const attr = document.documentElement.getAttribute('data-theme')
+    if (attr) return attr === 'dark'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+  }
+
+  // Palet planet mengikuti tema. Versi terang memakai dasar hangat yang lebih
+  // muda agar tidak tampak seperti bola gelap, terutama di layar kecil.
+  const THEMES = {
+    dark: {
+      base: '#4A1B0C',
+      levels: [
+        ['#4A1B0C', '#854F0B', '#BA7517', '#EF9F27', '#FAC775'],
+        ['#4A1B0C', '#712B13', '#993C1D', '#D85A30', '#F0997B'],
+        ['#412402', '#633806', '#854F0B', '#EF9F27', '#FAC775'],
+      ],
+      moonRim: '#444441',
+      moonFace: '#D3D1C7',
+    },
+    light: {
+      base: '#C58B4A',
+      levels: [
+        ['#8A4B1F', '#A9601F', '#C97C29', '#E99C34', '#FAC775'],
+        ['#7A3418', '#A64A22', '#C4683A', '#E58B5A', '#F0997B'],
+        ['#6E4508', '#91600F', '#B27F25', '#E99C34', '#FAC775'],
+      ],
+      moonRim: '#9A9387',
+      moonFace: '#F7F3E9',
+    },
+  }
+
   let ink = resolveInk()
+  let palFlat = []
+  let planetBase = THEMES.dark.base
+  let moonRim = THEMES.dark.moonRim
+  let moonFace = THEMES.dark.moonFace
+
+  const applyTheme = () => {
+    const t = THEMES[isDarkTheme() ? 'dark' : 'light']
+    planetBase = t.base
+    palFlat = t.levels.flat()
+    moonRim = t.moonRim
+    moonFace = t.moonFace
+    ink = resolveInk()
+  }
+  applyTheme()
 
   let W = 0
   let H = 0
@@ -61,13 +107,6 @@ onMounted(() => {
     const t = i * 2.399963
     pts.push([Math.cos(t) * r, y, Math.sin(t) * r])
   }
-
-  const pal = [
-    ['#4A1B0C', '#854F0B', '#BA7517', '#EF9F27', '#FAC775'],
-    ['#4A1B0C', '#712B13', '#993C1D', '#D85A30', '#F0997B'],
-    ['#412402', '#633806', '#854F0B', '#EF9F27', '#FAC775'],
-  ]
-  const palFlat = pal.flat()
 
   const ring = []
   for (let j = 0; j < M; j++) {
@@ -296,11 +335,11 @@ onMounted(() => {
       const mrad = R * 0.2 * (1 + (0.1 * p[2]) / mr)
       const mox = p[0]
       const moy = cy + (p[1] - cy) * vs
-      ctx.fillStyle = '#444441'
+      ctx.fillStyle = moonRim
       ctx.beginPath()
       ctx.arc(mox, moy, mrad, 0, TAU)
       ctx.fill()
-      ctx.fillStyle = '#D3D1C7'
+      ctx.fillStyle = moonFace
       ctx.beginPath()
       ctx.arc(mox + L[0] * mrad * 0.25, moy - L[1] * mrad * 0.25, mrad * 0.78, 0, TAU)
       ctx.fill()
@@ -313,7 +352,7 @@ onMounted(() => {
     ctx.beginPath()
     ctx.arc(cx, cy, R, 0, TAU)
     ctx.clip()
-    ctx.fillStyle = '#4A1B0C'
+    ctx.fillStyle = planetBase
     ctx.fillRect(cx - R - 2, cy - R - 2, R * 2 + 4, R * 2 + 4)
 
     for (let b = 0; b < batch.length; b++) batch[b].length = 0
@@ -472,14 +511,14 @@ onMounted(() => {
   ro.observe(c)
 
   const mo = new MutationObserver(() => {
-    ink = resolveInk()
+    applyTheme()
     if (reduceMotion) render(performance.now())
   })
   mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
 
   const darkMq = window.matchMedia('(prefers-color-scheme: dark)')
   const onScheme = () => {
-    ink = resolveInk()
+    applyTheme()
     if (reduceMotion) render(performance.now())
   }
   if (darkMq.addEventListener) darkMq.addEventListener('change', onScheme)

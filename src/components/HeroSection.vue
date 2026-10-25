@@ -6,12 +6,14 @@ import { runReveal } from "../composables/useReveal";
 import { vMagnetic } from "../directives/magnetic";
 import { heroMeta } from "../data/portfolio";
 import { GITHUB } from "../data/config";
+import heroPhoto from "../assets/images/faisal.png";
 
 const root = ref(null);
 const ditherMount = ref(null);
 const wm = ref(null);
 const wmWrap = ref(null);
 const wmFit = ref(null);
+const posterInner = ref(null);
 const script = ref(null);
 const clock = ref("Lumajang, ID");
 const groups = ["port", "folio"].map((word) => word.split(""));
@@ -23,15 +25,19 @@ let ctx,
   themeObserver,
   themeMedia,
   renderDither,
+  breathTl,
+  heroObserver,
+  heroVisible = true,
+  pageVisible = true,
   ditherLoading = false,
   disposed = false;
 
 function ditherProps(React, DitherVeil) {
   const theme = getComputedStyle(document.documentElement);
   return React.createElement(DitherVeil, {
-    src: "https://images.unsplash.com/photo-1737071371043-761e02b1ef95?q=72&w=1000&auto=format&fit=crop",
+    src: heroPhoto,
     pattern: "floyd",
-    zoom: 1.15,
+    zoom: 0.9,
     pixelSize: window.innerWidth <= 640 ? 3 : 2,
     inkColor: theme.getPropertyValue("--bg").trim(),
     paperColor: theme.getPropertyValue("--fg").trim(),
@@ -52,7 +58,6 @@ function ditherProps(React, DitherVeil) {
       position: "absolute",
       inset: 0,
       opacity: 0.65,
-      transform: "translateY(-2%)",
     },
   });
 }
@@ -107,6 +112,43 @@ function tick() {
   clock.value = `Lumajang, ID · ${t} WIB`;
 }
 
+// Judul memudar berkala sebagai efek "bernapas".
+function startBreathing() {
+  if (!animated || breathTl || disposed || !posterInner.value) return;
+
+  breathTl = gsap
+    .timeline({
+      repeat: -1,
+      repeatDelay: 8,
+      paused: !heroVisible || !pageVisible,
+    })
+    .to(posterInner.value, {
+      opacity: 0.12,
+      duration: 1.2,
+      ease: "sine.inOut",
+    })
+    .to(
+      posterInner.value,
+      {
+        opacity: 1,
+        duration: 1.2,
+        ease: "sine.inOut",
+      },
+      "+=1.6",
+    );
+}
+
+function setBreathingPaused() {
+  if (!breathTl) return;
+  if (heroVisible && pageVisible) breathTl.play();
+  else breathTl.pause();
+}
+
+function onVisibility() {
+  pageVisible = !document.hidden;
+  setBreathingPaused();
+}
+
 // Ukur lebar kata lalu skala font agar wordmark selalu full-bleed.
 function fitWordmark() {
   const el = wm.value;
@@ -154,6 +196,15 @@ onMounted(async () => {
     ro = new ResizeObserver(refit);
     wmWrap.value && ro.observe(wmWrap.value);
     wmFit.value && ro.observe(wmFit.value);
+  }
+
+  document.addEventListener("visibilitychange", onVisibility);
+  if (typeof IntersectionObserver !== "undefined" && root.value) {
+    heroObserver = new IntersectionObserver(([entry]) => {
+      heroVisible = entry.isIntersecting;
+      setBreathingPaused();
+    });
+    heroObserver.observe(root.value);
   }
 
   if (!animated) {
@@ -212,6 +263,8 @@ onMounted(async () => {
       "<",
     );
 
+    tl.call(startBreathing, [], ">");
+
     gsap.to(wmWrap.value, {
       yPercent: -6,
       ease: "none",
@@ -230,6 +283,9 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   clearInterval(timer);
   disposed = true;
+  breathTl && breathTl.kill();
+  heroObserver && heroObserver.disconnect();
+  document.removeEventListener("visibilitychange", onVisibility);
   themeObserver && themeObserver.disconnect();
   themeMedia && themeMedia.removeEventListener("change", renderDither);
   window.removeEventListener("resize", renderDither);
@@ -255,7 +311,7 @@ onBeforeUnmount(() => {
 
       <div ref="wmWrap" class="hero-poster">
         <div ref="ditherMount" class="hero-dither" aria-hidden="true"></div>
-        <div class="hero-poster-inner">
+        <div ref="posterInner" class="hero-poster-inner">
           <h1
             id="hero-wm"
             ref="wm"
