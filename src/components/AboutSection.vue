@@ -7,10 +7,10 @@ import { scrollToTarget } from '../composables/useLenis'
 import ScrollReveal from './ScrollReveal.vue'
 import ProfileCard from './ProfileCard.vue'
 import { aboutText, IPK, stats } from '../data/portfolio'
-import { CONFIG, GITHUB } from '../data/config'
+import { GITHUB } from '../data/config'
+import formalPhoto from '../assets/images/formalfaisal.png'
 
 const root = ref(null)
-const handle = GITHUB.split('/').filter(Boolean).pop()
 
 // angka mulai dari 0 kalau animasi aktif, langsung final kalau tidak
 const ipk = ref(animated ? '0.00' : IPK.toFixed(2))
@@ -83,19 +83,18 @@ onBeforeUnmount(() => ctx && ctx.revert())
 
       <div class="facts">
         <ProfileCard
-          class="reveal"
-          :avatar-url="CONFIG.photo"
-          :mini-avatar-url="CONFIG.photo"
+          class="reveal about-profile-card"
+          :avatar-url="formalPhoto"
           name="Achmad Faisal"
           title="Full Stack Developer"
-          :handle="handle"
-          status="Building & Learning"
+          handle=""
+          status=""
           contact-text="Contact"
           :radius="18"
-          :holo="0.6"
-          :glare="0.35"
-          :tilt-strength="10"
-          :parallax="6"
+          :holo="0.3"
+          :glare="0.18"
+          :tilt-strength="5"
+          :parallax="3"
           :enable-mobile-tilt="false"
           enable-tilt
           intro
@@ -111,3 +110,18 @@ onBeforeUnmount(() => ctx && ctx.revert())
     </div>
   </section>
 </template>
+
+<style scoped>
+.facts :deep(.about-profile-card .profile-card__footer) {
+  justify-content: center;
+}
+
+.facts :deep(.about-profile-card .profile-card__meta:empty) {
+  display: none;
+}
+
+.facts :deep(.about-profile-card .profile-card__contact) {
+  flex: 1;
+  justify-content: center;
+}
+</style>
