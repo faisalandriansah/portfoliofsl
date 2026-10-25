@@ -11,7 +11,6 @@ import AboutSection from './components/AboutSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import TimelineSection from './components/TimelineSection.vue'
 import GallerySection from './components/GallerySection.vue'
-import OrbitSection from './components/OrbitSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import CommandPalette from './components/CommandPalette.vue'
 import ToastMessage from './components/ToastMessage.vue'
@@ -36,7 +35,6 @@ import ToastMessage from './components/ToastMessage.vue'
   <div class="wrap">
     <TimelineSection />
     <GallerySection />
-    <OrbitSection />
     <ContactSection />
   </div>
 
