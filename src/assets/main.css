@@ -118,8 +118,16 @@ a {
   background: var(--bg);
   box-shadow: 0 -18px 42px color-mix(in srgb, var(--fg) 10%, transparent);
 }
+@media (min-width: 761px) {
+  .curtain-about {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .curtain-hero {
+  .curtain-hero,
+  .curtain-about {
     position: relative;
   }
 }
@@ -815,26 +823,26 @@ nav button:hover {
   flex: 0 0 min(86vw, 700px);
   height: 74svh;
   min-height: 500px;
-  padding: 16px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   gap: 18px;
   border: 1px solid var(--line);
-  border-radius: 30px;
+  border-radius: 26px;
   overflow: hidden;
   background:
     radial-gradient(
       520px at var(--mx, 70%) var(--my, 0%),
-      color-mix(in srgb, var(--accent) 16%, transparent),
-      transparent 70%
+      color-mix(in srgb, var(--accent) 8%, transparent),
+      transparent 72%
     ),
-    linear-gradient(145deg, color-mix(in srgb, var(--card) 96%, var(--accent) 4%), var(--card) 58%);
-  box-shadow: 0 24px 70px -48px color-mix(in srgb, var(--fg) 55%, transparent);
+    color-mix(in srgb, var(--card) 98%, var(--bg));
+  box-shadow: 0 24px 60px -48px color-mix(in srgb, var(--fg) 45%, transparent);
   transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
 }
 .pnl:hover {
-  border-color: var(--accent);
-  box-shadow: 0 30px 80px -46px color-mix(in srgb, var(--accent) 36%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 62%, var(--line));
+  box-shadow: 0 30px 76px -46px color-mix(in srgb, var(--accent) 24%, transparent);
   transform: translateY(-4px);
 }
 .pnl.intro {
@@ -857,15 +865,15 @@ nav button:hover {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--line);
-  border-radius: 19px;
+  border-radius: 16px;
   overflow: hidden;
   background: color-mix(in srgb, var(--bg) 76%, var(--card));
-  box-shadow: 0 20px 42px -24px color-mix(in srgb, var(--fg) 38%, transparent);
+  box-shadow: 0 18px 38px -26px color-mix(in srgb, var(--fg) 32%, transparent);
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s;
 }
 .pnl:hover .shot {
-  transform: translateY(-4px);
-  box-shadow: 0 28px 50px -26px color-mix(in srgb, var(--fg) 42%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 24px 48px -28px color-mix(in srgb, var(--fg) 36%, transparent);
 }
 .hs-intro-copy {
   max-width: 430px;
@@ -969,8 +977,33 @@ nav button:hover {
   gap: 12px;
   transition: transform 3s cubic-bezier(0.45, 0, 0.2, 1);
 }
+.scr-image {
+  height: 100%;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: var(--card);
+}
+.scr-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: top center;
+  transform: scale(1.015);
+  transform-origin: top center;
+}
 .pnl:hover .scr {
   transform: translateY(calc(-1 * var(--sh, 30%)));
+}
+.pnl:hover .scr-image {
+  transform: none;
+}
+.pnl:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
 }
 .ill {
   position: absolute;
@@ -1171,7 +1204,7 @@ nav button:hover {
   grid-template-columns: minmax(0, 1fr) 54px;
   gap: 10px 20px;
   align-items: end;
-  padding: 2px 8px 6px;
+  padding: 2px 6px 4px;
 }
 .info .n {
   grid-column: 1/-1;
@@ -1179,50 +1212,50 @@ nav button:hover {
   padding: 5px 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--card) 72%, transparent);
+  background: color-mix(in srgb, var(--card) 84%, transparent);
   font: 10px "JetBrains Mono", ui-monospace, monospace;
   letter-spacing: 0.04em;
   color: var(--muted);
 }
 .pnl h3 {
-  font-size: clamp(26px, 3.2vw, 40px);
+  font-size: clamp(25px, 3vw, 38px);
   margin: 0;
   line-height: 1.05;
   font-weight: 800;
   letter-spacing: -0.045em;
 }
 .pnl p {
-  margin: 9px 0 0;
+  margin: 8px 0 0;
   color: var(--muted);
   font-size: 14px;
-  line-height: 1.65;
+  line-height: 1.55;
   max-width: 440px;
 }
 .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 11px;
 }
 .tags span {
   font-size: 12px;
   padding: 5px 11px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--card) 68%, transparent);
+  background: color-mix(in srgb, var(--card) 82%, transparent);
   transition: border-color 0.25s, color 0.25s, background 0.25s;
 }
 .pnl:hover .tags span {
   border-color: color-mix(in srgb, var(--accent) 38%, var(--line));
 }
 .arrow {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: grid;
   place-items: center;
   border: 1px solid var(--line);
-  font-size: 20px;
+  font-size: 18px;
   transition: background 0.3s, color 0.3s, transform 0.3s, border-color 0.3s;
 }
 .pnl:hover .arrow {
@@ -1304,6 +1337,177 @@ footer {
   font-size: 14px;
   text-align: center;
   border-top: 1px solid var(--line);
+}
+.project-drawer-open {
+  overflow: hidden;
+}
+.project-drawer-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+}
+.project-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: color-mix(in srgb, #000 62%, transparent);
+  backdrop-filter: blur(7px);
+  cursor: pointer;
+}
+.project-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(680px, 100%);
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding: clamp(24px, 4vw, 52px);
+  background: var(--bg);
+  border-left: 1px solid var(--line);
+  box-shadow: -24px 0 70px -40px #000;
+  animation: project-drawer-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.project-drawer__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.project-drawer__eyebrow,
+.project-drawer__label {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font: 10px "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.project-drawer h2 {
+  margin: 0;
+  font-size: clamp(36px, 6vw, 64px);
+}
+.project-drawer__close {
+  display: grid;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--fg);
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+}
+.project-drawer__close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.project-drawer__content {
+  display: grid;
+  gap: 28px;
+  padding-top: 28px;
+}
+.project-drawer__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  object-position: top center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.project-drawer__content section {
+  padding: 0;
+}
+.project-drawer__content p:not(.project-drawer__label) {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+.project-drawer__meta,
+.project-drawer__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.project-drawer__meta {
+  padding: 18px 0;
+  border-block: 1px solid var(--line);
+}
+.project-drawer__meta span {
+  color: var(--fg);
+  font-size: 13px;
+}
+.project-drawer__meta small {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font: 10px "JetBrains Mono", ui-monospace, monospace;
+  text-transform: uppercase;
+}
+.project-drawer__features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 13px;
+}
+.project-drawer__features li::before {
+  content: "↗";
+  margin-right: 8px;
+  color: var(--accent);
+}
+.project-drawer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg);
+  font: 11px "JetBrains Mono", ui-monospace, monospace;
+}
+.project-drawer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.project-drawer__link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+@keyframes project-drawer-in {
+  from { opacity: 0; transform: translateX(32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@media (max-width: 640px) {
+  .project-drawer {
+    width: 100%;
+    padding: 22px 18px 34px;
+  }
+  .project-drawer__columns,
+  .project-drawer__meta,
+  .project-drawer__features {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .project-drawer__image {
+    aspect-ratio: 16 / 10;
+  }
 }
 .splash-cursor-host {
   position: fixed;
@@ -2204,25 +2408,32 @@ h2,
   }
   .hs-in {
     display: block;
-    padding: 84px 0;
+    min-height: auto;
+    padding: 44px 0 64px;
   }
   .hs-track {
     flex-direction: column;
     align-items: stretch;
-    padding: 0 24px;
+    padding: 0 18px;
   }
   .pnl {
     flex: none;
+    width: 100%;
     height: auto;
     min-height: 0;
+    padding: 12px;
+    gap: 14px;
   }
   .shot {
     flex: none;
-    height: 280px;
+    height: auto;
   }
   .pnl.intro {
     min-height: 0;
-    padding-bottom: 10px;
+    padding-bottom: 18px;
+  }
+  .pnl.intro h2 {
+    margin-bottom: 0;
   }
   .scroll {
     display: none;
@@ -2236,7 +2447,18 @@ h2,
     margin-top: 48px;
   }
   .shot {
-    height: clamp(220px, 42vw, 280px);
+    height: auto;
+  }
+  .shot .view {
+    height: calc((100vw - 60px) * 0.47);
+  }
+  .scr-image {
+    height: 100%;
+  }
+  .scr-image img {
+    height: auto;
+    min-height: 100%;
+    object-fit: cover;
   }
 }
 @media (max-width: 640px) {
@@ -2352,6 +2574,39 @@ h2,
   }
   .pnl {
     padding: 10px;
+  }
+}
+@media (max-width: 640px) {
+  .hs-in {
+    padding-top: 22px;
+    padding-bottom: 48px;
+  }
+  .hs-track {
+    gap: 10px;
+    padding-inline: 14px;
+  }
+  .pnl.intro {
+    padding-bottom: 4px;
+  }
+  .pnl.intro .eyebrow {
+    margin-bottom: 10px;
+  }
+  .pnl.intro h2 {
+    font-size: clamp(42px, 13vw, 58px);
+  }
+  .shot {
+    height: clamp(190px, 58vw, 250px);
+  }
+  .shot .view {
+    height: auto;
+  }
+  .scr-image img {
+    width: 125%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0;
+    transform: scale(1.02);
   }
 }
 @media (prefers-reduced-motion: reduce) {

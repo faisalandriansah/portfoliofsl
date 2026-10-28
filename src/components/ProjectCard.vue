@@ -6,6 +6,7 @@ const props = defineProps({
   project: { type: Object, required: true },
   shot: { type: String, default: '' },
 })
+const emit = defineEmits(['select'])
 
 const card = ref(null)
 const visible = ref(!animated)
@@ -15,6 +16,16 @@ function trackPointer(event) {
   const bounds = card.value.getBoundingClientRect()
   card.value.style.setProperty('--mx', `${event.clientX - bounds.left}px`)
   card.value.style.setProperty('--my', `${event.clientY - bounds.top}px`)
+}
+
+function selectProject() {
+  emit('select', props.project)
+}
+
+function onKeydown(event) {
+  if (event.key !== 'Enter' && event.key !== ' ') return
+  event.preventDefault()
+  selectProject()
 }
 
 onMounted(() => {
@@ -40,6 +51,11 @@ onBeforeUnmount(() => observer?.disconnect())
     class="pnl"
     :class="{ on: visible }"
     @pointermove="trackPointer"
+    @click="selectProject"
+    @keydown="onKeydown"
+    tabindex="0"
+    role="button"
+    :aria-label="`Lihat detail ${props.project.title}`"
   >
     <div class="shot">
       <div class="sb">
@@ -47,7 +63,11 @@ onBeforeUnmount(() => observer?.disconnect())
         <span>{{ props.project.bar }}</span>
       </div>
       <div class="view">
-        <div class="scr" :style="{ '--sh': props.project.sh }">
+        <div
+          class="scr"
+          :class="{ 'scr-image': props.shot }"
+          :style="{ '--sh': props.project.sh }"
+        >
           <img
             v-if="props.shot"
             :src="props.shot"
@@ -57,7 +77,7 @@ onBeforeUnmount(() => observer?.disconnect())
           />
           <slot v-else />
         </div>
-        <div class="ill">Preview UI</div>
+        <div v-if="!props.shot" class="ill">Preview UI</div>
       </div>
     </div>
 
@@ -77,6 +97,7 @@ onBeforeUnmount(() => observer?.disconnect())
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Buka GitHub"
+        @click.stop
       >↗</a>
       <span v-else class="arrow" aria-hidden="true">↗</span>
     </div>

@@ -8,6 +8,7 @@ import ProjectCard from './ProjectCard.vue'
 import MockCareerMate from './mocks/MockCareerMate.vue'
 import MockDashboard from './mocks/MockDashboard.vue'
 import MockGithub from './mocks/MockGithub.vue'
+import ProjectDetailModal from './ProjectDetailModal.vue'
 
 const mocks = {
   careermate: MockCareerMate,
@@ -16,6 +17,7 @@ const mocks = {
 }
 const root = ref(null)
 const track = ref(null)
+const selectedProject = ref(null)
 let media
 
 onMounted(() => {
@@ -41,6 +43,14 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => media?.revert())
+
+function openProject(project) {
+  selectedProject.value = project
+}
+
+function closeProject() {
+  selectedProject.value = null
+}
 </script>
 
 <template>
@@ -49,7 +59,7 @@ onBeforeUnmount(() => media?.revert())
       <div ref="track" class="hs-track">
         <div class="pnl intro">
           <p class="eyebrow"><b>02</b>Projects</p>
-          <h2 class="d">Karya<br>pilihan →</h2>
+          <h2 class="d">Selected<br>Projects →</h2>
         </div>
 
         <ProjectCard
@@ -57,10 +67,17 @@ onBeforeUnmount(() => media?.revert())
           :key="project.key"
           :project="project"
           :shot="CONFIG.shots?.[index] || ''"
+          @select="openProject"
         >
           <component :is="mocks[project.key]" />
         </ProjectCard>
       </div>
     </div>
+    <ProjectDetailModal
+      v-if="selectedProject"
+      :project="selectedProject"
+      :shot="CONFIG.shots?.[projects.indexOf(selectedProject)] || ''"
+      @close="closeProject"
+    />
   </section>
 </template>

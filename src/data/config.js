@@ -1,4 +1,7 @@
 import foto from "@/assets/images/fotosaya.webp";
+import careermateShot from "@/assets/images/careermate.png";
+import wbsShot from "@/assets/images/wbs.png";
+import sppgShot from "@/assets/images/sppg.png";
 
 export const CONFIG = {
   email: "faisalrahmad039@gmail.com",
@@ -6,7 +9,7 @@ export const CONFIG = {
   linkedin: "https://www.linkedin.com/in/faisal-andriansah/",
   cv: "/files/cv achmad faisal andriansah.pdf",
   photo: foto,
-  shots: ["", "", ""],
+  shots: [careermateShot, wbsShot, sppgShot, ""],
 };
 
 export const GITHUB = "https://github.com/faisalandriansah";
