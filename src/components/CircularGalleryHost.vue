@@ -73,8 +73,30 @@ async function loadGallery() {
       attributeFilter: ['data-theme'],
     })
   } catch (error) {
-    console.error('Unable to load the certificate gallery:', error)
-    loadError.value = true
+    console.warn('Initial certificate gallery load failed; retrying without the browser cache:', error)
+
+    try {
+      const [{ default: React }, { createRoot }, { default: CircularGallery }] = await Promise.all([
+        import('react'),
+        import('react-dom/client'),
+        import('./CircularGallery.jsx?retry=1'),
+      ])
+
+      if (disposed) return
+
+      GalleryComponent = CircularGallery
+      reactRoot = createRoot(mount.value)
+      reactRoot.render(React.createElement(CircularGallery, componentProps()))
+      galleryReady.value = true
+      themeObserver = new MutationObserver(syncTheme)
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme'],
+      })
+    } catch (retryError) {
+      console.error('Unable to load the certificate gallery after retry:', retryError)
+      loadError.value = true
+    }
   }
 }
 

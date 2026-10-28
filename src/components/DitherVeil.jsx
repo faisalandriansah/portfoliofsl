@@ -752,6 +752,17 @@ const DitherVeil = ({
       introStart = performance.now();
       wake();
     };
+    let retried = false;
+    img.onerror = error => {
+      if (retried) {
+        console.error(`Unable to load dither image: ${src}`, error);
+        return;
+      }
+
+      retried = true;
+      const separator = src.includes('?') ? '&' : '?';
+      img.src = `${src}${separator}retry=1`;
+    };
     img.src = src;
 
     const locate = e => {

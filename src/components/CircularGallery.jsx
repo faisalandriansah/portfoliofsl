@@ -404,6 +404,7 @@ const CircularGallery = ({
       const image = new Image();
       image.crossOrigin = 'anonymous';
       image.decoding = 'async';
+      let retried = false;
       image.onload = () => {
         if (!textures.has(url)) return;
         const texture = gl.createTexture();
@@ -424,6 +425,16 @@ const CircularGallery = ({
         entry.aspect = image.naturalWidth / Math.max(1, image.naturalHeight);
         entry.loaded = true;
         wake();
+      };
+      image.onerror = error => {
+        if (retried) {
+          console.error(`Unable to load gallery image: ${url}`, error);
+          return;
+        }
+
+        retried = true;
+        const separator = url.includes('?') ? '&' : '?';
+        image.src = `${url}${separator}retry=1`;
       };
       image.src = url;
       return entry;
