@@ -24,12 +24,19 @@ import ToastMessage from './components/ToastMessage.vue'
   <NavBar />
   <ThemeFab />
 
-  <HeroSection />
-  <TechMarquee />
+  <div class="curtain-stage">
+    <div class="curtain-hero">
+      <HeroSection />
+    </div>
 
-  <main class="wrap">
-    <AboutSection />
-  </main>
+    <TechMarquee />
+
+    <main class="curtain-about">
+      <div class="wrap">
+        <AboutSection />
+      </div>
+    </main>
+  </div>
 
   <ProjectsSection />
 

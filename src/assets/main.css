@@ -96,6 +96,33 @@ a {
   margin: 0 auto;
   padding: 0 24px;
 }
+.curtain-stage {
+  position: relative;
+  isolation: isolate;
+}
+.curtain-hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  min-height: 100svh;
+}
+.curtain-hero .hero {
+  z-index: 0;
+}
+.curtain-stage > .mq,
+.curtain-about {
+  position: relative;
+  z-index: 1;
+}
+.curtain-about {
+  background: var(--bg);
+  box-shadow: 0 -18px 42px color-mix(in srgb, var(--fg) 10%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .curtain-hero {
+    position: relative;
+  }
+}
 .d {
   font-family:
     "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
