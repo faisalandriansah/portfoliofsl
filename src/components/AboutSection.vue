@@ -8,7 +8,7 @@ import ScrollReveal from './ScrollReveal.vue'
 import ProfileCard from './ProfileCard.vue'
 import { aboutText, IPK, stats } from '../data/portfolio'
 import { GITHUB } from '../data/config'
-import formalPhoto from '../assets/images/formalfaisal.png'
+import formalPhoto from '../assets/images/formalfaisal.webp'
 
 const root = ref(null)
 

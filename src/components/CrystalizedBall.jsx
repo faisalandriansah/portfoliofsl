@@ -1346,11 +1346,11 @@ const CrystalizedBall = ({
         stirring > 0 ||
         Math.abs(heat.velocity) > 0.01 ||
         Math.hypot(look.vx, look.vy, look.x - lookX, look.y - lookY) > 0.001;
-      if (visible && (moving || introClock < 1 || settling)) raf = requestAnimationFrame(frame);
+      if (visible && !document.hidden && (moving || introClock < 1 || settling)) raf = requestAnimationFrame(frame);
     };
 
     const start = () => {
-      if (raf || !visible || !alive) return;
+      if (raf || !visible || document.hidden || !alive) return;
       last = performance.now();
       raf = requestAnimationFrame(frame);
     };

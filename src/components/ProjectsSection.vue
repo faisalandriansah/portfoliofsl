@@ -13,6 +13,10 @@ import ProjectDetailModal from './ProjectDetailModal.vue'
 const mocks = {
   careermate: MockCareerMate,
   inspektorat: MockDashboard,
+  'elibrary-spenyosi': MockDashboard,
+  ypab: MockDashboard,
+  eksploramuda: MockDashboard,
+  deardeadline: MockDashboard,
   github: MockGithub,
 }
 const root = ref(null)

@@ -11,30 +11,42 @@ let ReactRuntime
 let CrystalizedBallComponent
 let disposed = false
 
-const ballProps = {
-  preset: 'plasma',
-  color: '#F25BD0',
-  size: 0.7,
-  crackle: 0.85,
-  fill: 0.5,
-  interactive: true,
-  hoverStrength: 0.7,
-  strands: 6,
-  flares: 0.65,
-  glow: 0.9,
-  sparks: 0.6,
-  particleCount: 15000,
-  motion: 'rise',
-  particleShape: 'square',
-  depth: 0.6,
-  sway: 0.5,
-  twinkle: 0.5,
-  haze: 0.7,
-  dustSpeed: 1,
-  speed: 1,
-  intro: true,
-  paused: false,
-  style: { height: '100%' },
+function particleCountForDevice() {
+  const cores = navigator.hardwareConcurrency || 4
+  const memory = navigator.deviceMemory || 4
+  const pixels = window.innerWidth * window.innerHeight
+
+  if (cores <= 4 || memory <= 4 || pixels > 5_000_000) return 5000
+  if (cores >= 8 && memory >= 8 && pixels < 3_000_000) return 9000
+  return 7000
+}
+
+function getBallProps() {
+  return {
+    preset: 'plasma',
+    color: '#F25BD0',
+    size: 0.7,
+    crackle: 0.85,
+    fill: 0.5,
+    interactive: true,
+    hoverStrength: 0.7,
+    strands: 6,
+    flares: 0.65,
+    glow: 0.9,
+    sparks: 0.6,
+    particleCount: particleCountForDevice(),
+    motion: 'rise',
+    particleShape: 'square',
+    depth: 0.6,
+    sway: 0.5,
+    twinkle: 0.5,
+    haze: 0.7,
+    dustSpeed: 1,
+    speed: 1,
+    intro: true,
+    paused: false,
+    style: { height: '100%' },
+  }
 }
 
 function currentTheme() {
@@ -49,7 +61,7 @@ function renderCrystalizedBall() {
 
   reactRoot.render(
     ReactRuntime.createElement(CrystalizedBallComponent, {
-      ...ballProps,
+      ...getBallProps(),
       theme: currentTheme(),
     }),
   )

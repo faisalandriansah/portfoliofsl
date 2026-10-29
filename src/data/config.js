@@ -1,7 +1,11 @@
 import foto from "@/assets/images/fotosaya.webp";
-import careermateShot from "@/assets/images/careermate.png";
-import wbsShot from "@/assets/images/wbs.png";
-import sppgShot from "@/assets/images/sppg.png";
+import careermateShot from "@/assets/images/careermate.webp";
+import wbsShot from "@/assets/images/wbs.webp";
+import sppgShot from "@/assets/images/sppg.webp";
+import elibraryShot from "@/assets/images/elibrary.webp";
+import ypabShot from "@/assets/images/ypab.webp";
+import eksploraShot from "@/assets/images/ekplor.webp";
+import deadlineShot from "@/assets/images/deadline.webp";
 
 export const CONFIG = {
   email: "faisalrahmad039@gmail.com",
@@ -9,7 +13,7 @@ export const CONFIG = {
   linkedin: "https://www.linkedin.com/in/faisal-andriansah/",
   cv: "/files/cv achmad faisal andriansah.pdf",
   photo: foto,
-  shots: [careermateShot, wbsShot, sppgShot, ""],
+  shots: [careermateShot, wbsShot, sppgShot, elibraryShot, ypabShot, eksploraShot, deadlineShot, ""],
 };
 
 export const GITHUB = "https://github.com/faisalandriansah";

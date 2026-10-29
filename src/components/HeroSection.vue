@@ -6,7 +6,7 @@ import { runReveal } from "../composables/useReveal";
 import { vMagnetic } from "../directives/magnetic";
 import { heroMeta } from "../data/portfolio";
 import { GITHUB } from "../data/config";
-import heroPhoto from "../assets/images/faisal.png";
+import heroPhoto from "../assets/images/faisal.webp";
 
 const root = ref(null);
 const ditherMount = ref(null);

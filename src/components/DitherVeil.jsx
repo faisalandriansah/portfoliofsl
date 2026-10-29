@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle, Texture, RenderTarget } from 'ogl';
 
 import './DitherVeil.css';
-import heroPhoto from '../assets/images/faisal.png';
+import heroPhoto from '../assets/images/faisal.webp';
 
 const DEFAULT_SRC = heroPhoto;
 
@@ -726,11 +726,11 @@ const DitherVeil = ({
 
       const busy =
         pointer.inside || wanderOn || presence > 0.002 || bursts.length > 0 || now < trailUntil || (image && intro < 1);
-      if (busy && visible) raf = requestAnimationFrame(frame);
+      if (busy && visible && !document.hidden) raf = requestAnimationFrame(frame);
     };
 
     const wake = () => {
-      if (raf || !visible) return;
+      if (raf || !visible || document.hidden) return;
       last = performance.now();
       raf = requestAnimationFrame(frame);
     };
@@ -783,6 +783,9 @@ const DitherVeil = ({
       pointer.inside = false;
       wake();
     };
+    const onVisibility = () => {
+      if (!document.hidden) wake();
+    };
     const onDown = e => {
       onMove(e);
       if (!settingsRef.current?.clickBurst || (e.pointerType === 'mouse' && e.button !== 0)) return;
@@ -794,6 +797,7 @@ const DitherVeil = ({
     container.addEventListener('pointerdown', onDown, { passive: true });
     container.addEventListener('pointerleave', onLeave, { passive: true });
     container.addEventListener('pointercancel', onLeave, { passive: true });
+    document.addEventListener('visibilitychange', onVisibility);
 
     const resizeObserver = new ResizeObserver(() => {
       layout();
@@ -820,6 +824,7 @@ const DitherVeil = ({
       container.removeEventListener('pointerdown', onDown);
       container.removeEventListener('pointerleave', onLeave);
       container.removeEventListener('pointercancel', onLeave);
+      document.removeEventListener('visibilitychange', onVisibility);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
       if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
     };
