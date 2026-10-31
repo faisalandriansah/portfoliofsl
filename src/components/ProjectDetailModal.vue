@@ -49,7 +49,7 @@ onBeforeUnmount(() => {
             class="project-drawer__image"
             :src="props.shot"
             :alt="`Screenshot ${props.project.title}`"
-            loading="eager"
+            loading="lazy"
             decoding="async"
           />
 

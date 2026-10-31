@@ -12,6 +12,7 @@ import ProjectsSection from './components/ProjectsSection.vue'
 import TimelineSection from './components/TimelineSection.vue'
 import GallerySection from './components/GallerySection.vue'
 import CrystalizedBallSection from './components/CrystalizedBallSection.vue'
+import GithubContributionsSection from './components/GithubContributionsSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import CommandPalette from './components/CommandPalette.vue'
 import ToastMessage from './components/ToastMessage.vue'
@@ -44,10 +45,43 @@ import ToastMessage from './components/ToastMessage.vue'
     <TimelineSection />
     <GallerySection />
     <CrystalizedBallSection />
+    <GithubContributionsSection />
     <ContactSection />
   </div>
 
-  <footer>© 2026 Achmad Faisal · Sukodono, Lumajang</footer>
+  <footer class="site-footer">
+    <div class="footer-links">
+      <div class="footer-connect">
+        <h2>Stay connected for<br>new ideas and collaborations.</h2>
+        <div class="footer-actions">
+          <a href="mailto:faisalrahmad039@gmail.com">Email ↗</a>
+          <a href="https://github.com/faisalandriansah" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="#kontak">Contact ↗</a>
+        </div>
+      </div>
+      <div class="footer-nav">
+        <div>
+          <small>Navigation</small>
+          <a href="#tentang">About</a>
+          <a href="#proyek">Projects</a>
+          <a href="#jejak">Journey</a>
+          <a href="#galeri">Gallery</a>
+        </div>
+        <div>
+          <small>Elsewhere</small>
+          <a href="https://www.linkedin.com/in/faisal-andriansah/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/faisalandriansah" target="_blank" rel="noopener">GitHub</a>
+          <a href="#kontak">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-wordmark" aria-label="Achmad Faisal">Achmad Faisal<span>.</span></div>
+    <div class="footer-meta">
+      <span>© 2026 Achmad Faisal</span>
+      <span>Full Stack Developer · Lumajang, Indonesia</span>
+      <a class="footer-up" href="#" aria-label="Kembali ke atas">Back to top ↑</a>
+    </div>
+  </footer>
 
   <ToastMessage />
   <CommandPalette />

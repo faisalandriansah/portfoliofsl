@@ -70,8 +70,8 @@ onBeforeUnmount(() => {
 
 <template>
   <section id="kontak" ref="root" class="cta">
-    <p class="eyebrow reveal"><b>05</b>Contact</p>
-    <a v-magnetic class="big d mag" :href="GITHUB" target="_blank" rel="noopener">Ayo bikin<br>sesuatu ↗</a>
+    <p class="eyebrow reveal"><b>06</b>Contact</p>
+    <a v-magnetic class="big d mag" :href="GITHUB" target="_blank" rel="noopener">Let's build<br><em>something great</em> ↗</a>
 
     <div class="clinks reveal">
       <template v-for="l in links" :key="l.label">

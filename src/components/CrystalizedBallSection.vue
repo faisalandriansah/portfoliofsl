@@ -10,15 +10,16 @@ let themeMedia
 let ReactRuntime
 let CrystalizedBallComponent
 let disposed = false
+let ballVisible = false
 
 function particleCountForDevice() {
   const cores = navigator.hardwareConcurrency || 4
   const memory = navigator.deviceMemory || 4
   const pixels = window.innerWidth * window.innerHeight
 
-  if (cores <= 4 || memory <= 4 || pixels > 5_000_000) return 5000
-  if (cores >= 8 && memory >= 8 && pixels < 3_000_000) return 9000
-  return 7000
+  if (cores <= 4 || memory <= 4 || pixels > 5_000_000) return 2200
+  if (cores >= 8 && memory >= 8 && pixels < 3_000_000) return 5000
+  return 3500
 }
 
 function getBallProps() {
@@ -44,7 +45,7 @@ function getBallProps() {
     dustSpeed: 1,
     speed: 1,
     intro: true,
-    paused: false,
+    paused: !ballVisible || document.hidden,
     style: { height: '100%' },
   }
 }
@@ -96,14 +97,15 @@ async function loadCrystalizedBall() {
 
 onMounted(() => {
   if (typeof IntersectionObserver === 'undefined') {
+    ballVisible = true
     void loadCrystalizedBall()
     return
   }
 
   visibilityObserver = new IntersectionObserver(([entry]) => {
-    if (!entry.isIntersecting) return
-    visibilityObserver.disconnect()
-    void loadCrystalizedBall()
+    ballVisible = entry.isIntersecting
+    if (!reactRoot && entry.isIntersecting) void loadCrystalizedBall()
+    else renderCrystalizedBall()
   }, { rootMargin: '400px 0px' })
   visibilityObserver.observe(mount.value)
 })

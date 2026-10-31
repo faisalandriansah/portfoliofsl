@@ -31,6 +31,7 @@ onBeforeUnmount(() => ctx && ctx.revert())
       <div v-for="t in timeline" :key="t.title" class="item reveal">
         <small>{{ t.date }}</small>
         <h3 class="d">{{ t.title }}</h3>
+        <strong class="item-org">{{ t.organization }}</strong>
         <p>{{ t.desc }}</p>
       </div>
     </div>

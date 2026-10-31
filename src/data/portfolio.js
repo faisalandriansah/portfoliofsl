@@ -1,8 +1,17 @@
+import galleryBootcamp from "@/assets/images/galery/acara bootcamp.webp";
+import galleryDemo from "@/assets/images/galery/demo project.webp";
+import galleryExpo from "@/assets/images/galery/expo project bersama dosen pembimbing.webp";
+import galleryMentor from "@/assets/images/galery/kegiatan kumpul bersama pembimbing magang.webp";
+import galleryInternship from "@/assets/images/galery/kegiatan magang.webp";
+import galleryIndustry from "@/assets/images/galery/kunjungan industri.webp";
+import gallerySeminar from "@/assets/images/galery/seminar hasil magang.webp";
+
 export const navLinks = [
   { label: "About", href: "#tentang" },
   { label: "Project", href: "#proyek" },
   { label: "Journey", href: "#jejak" },
-  { label: "Certificates", href: "#sertifikat" },
+  { label: "Gallery", href: "#galeri" },
+  { label: "GitHub", href: "#github" },
   { label: "Contact", href: "#kontak" },
 ];
 
@@ -252,59 +261,89 @@ export const projects = [
       linkLabel: "Buka website",
     },
   },
-  {
-    key: "github",
-    bar: "github.com/faisalandriansah",
-    sh: "30%",
-    n: "08 — Open source",
-    title: "Lebih banyak di GitHub",
-    desc: "Kumpulan proyek dan eksperimen lainnya tersedia di profil GitHub.",
-    tags: ["Open source", "Portfolio"],
-    detail: {
-      category: "Open Source",
-      role: "Builder and Maintainer",
-      overview:
-        "Kumpulan proyek, eksperimen, dan pembelajaran yang saya bangun sepanjang proses menjadi developer.",
-      challenge:
-        "Menjaga proses belajar tetap konsisten melalui proyek nyata dan eksperimen kecil.",
-      solution:
-        "Mendokumentasikan eksplorasi teknologi dan membagikan hasilnya melalui GitHub.",
-      features: [
-        "Eksperimen teknologi",
-        "Proyek web",
-        "Reusable components",
-        "Catatan pembelajaran",
-      ],
-      link: "https://github.com/faisalandriansah",
-      linkLabel: "View on GitHub",
-    },
-  },
+  // {
+  //   key: "github",
+  //   bar: "github.com/faisalandriansah",
+  //   sh: "30%",
+  //   n: "08 — Open source",
+  //   title: "Lebih banyak di GitHub",
+  //   desc: "Kumpulan proyek dan eksperimen lainnya tersedia di profil GitHub.",
+  //   tags: ["Open source", "Portfolio"],
+  //   detail: {
+  //     category: "Open Source",
+  //     role: "Builder and Maintainer",
+  //     overview:
+  //       "Kumpulan proyek, eksperimen, dan pembelajaran yang saya bangun sepanjang proses menjadi developer.",
+  //     challenge:
+  //       "Menjaga proses belajar tetap konsisten melalui proyek nyata dan eksperimen kecil.",
+  //     solution:
+  //       "Mendokumentasikan eksplorasi teknologi dan membagikan hasilnya melalui GitHub.",
+  //     features: [
+  //       "Eksperimen teknologi",
+  //       "Proyek web",
+  //       "Reusable components",
+  //       "Catatan pembelajaran",
+  //     ],
+  //     link: "https://github.com/faisalandriansah",
+  //     linkLabel: "View on GitHub",
+  //   },
+  // },
 ];
 
 export const timeline = [
   {
-    date: "Des 2025 – Jun 2026",
+    date: "DEC 2025 — JUN 2026",
     title: "Junior Full Stack Developer",
-    desc: "Project based · Inspektorat Daerah Kabupaten Lumajang",
+    organization: "Project-Based · Inspektorat Daerah Kabupaten Lumajang",
+    desc: "Contributed to web application development and workflow automation projects, transforming ideas and requirements into practical digital solutions.",
   },
   {
-    date: "Jul – Okt 2025",
-    title: "Magang Full Stack Developer",
-    desc: "Inspektorat Daerah Kabupaten Lumajang",
+    date: "JUL — OCT 2025",
+    title: "Full Stack Developer Intern",
+    organization: "Inspektorat Daerah Kabupaten Lumajang",
+    desc: "Gained hands-on experience in web development, contributing to internal applications and improving existing system interfaces and workflows.",
   },
   {
-    date: "2023 – 2026",
-    title: "D3 Teknologi Informasi",
-    desc: "Politeknik Negeri Malang, PSDKU Lumajang",
+    date: "2023 — 2026",
+    title: "D3 Information Technology",
+    organization: "Politeknik Negeri Malang · PSDKU Lumajang",
+    desc: "Built a foundation in software development, database management, information systems, and problem-solving.",
+  },
+  {
+    date: "2020 — 2023",
+    title: "Computer and Network Engineering",
+    organization: "SMK Negeri 1 Lumajang",
+    desc: "Developed foundational knowledge of computer systems, networking, hardware, and information technology.",
   },
 ];
 
-export const certificates = [
+export const gallery = [
   {
-    image: "/images/certificates/certificate-placeholder.svg",
-    text: "Computer Software Programming",
-    description:
-      "LSP Polinema · Ilustrasi sementara, bukan scan resmi sertifikat.",
-    aspect: 1.414,
+    image: galleryInternship,
+    text: "Internship days",
+  },
+  {
+    image: galleryMentor,
+    text: "Learning with mentors",
+  },
+  {
+    image: galleryDemo,
+    text: "Project demonstration",
+  },
+  {
+    image: galleryExpo,
+    text: "Project exhibition",
+  },
+  {
+    image: gallerySeminar,
+    text: "Internship presentation",
+  },
+  {
+    image: galleryBootcamp,
+    text: "Bootcamp session",
+  },
+  {
+    image: galleryIndustry,
+    text: "Industry visit",
   },
 ];

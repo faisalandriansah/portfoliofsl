@@ -16,7 +16,7 @@ const commands = [
   { t: 'Go to About', k: 'Navigation', f: () => scrollToTarget('#tentang') },
   { t: 'Go to Projects', k: 'Navigation', f: () => scrollToTarget('#proyek') },
   { t: 'Go to Journey', k: 'Navigation', f: () => scrollToTarget('#jejak') },
-  { t: 'Go to Certificates', k: 'Navigation', f: () => scrollToTarget('#sertifikat') },
+  { t: 'Go to Gallery', k: 'Navigation', f: () => scrollToTarget('#galeri') },
   { t: 'Go to Contact', k: 'Navigation', f: () => scrollToTarget('#kontak') },
   { t: 'Change Theme', k: 'Appearance', f: toggleTheme },
   { t: 'Open GitHub', k: 'Link', f: () => open(GITHUB, '_blank') },

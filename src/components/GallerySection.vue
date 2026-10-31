@@ -1,22 +1,22 @@
 <script setup>
-import { certificates } from '../data/portfolio'
+import { gallery } from '../data/portfolio'
 import CircularGalleryHost from './CircularGalleryHost.vue'
 </script>
 
 <template>
-  <section id="sertifikat" class="certificate-gallery">
+  <section id="galeri" class="photo-gallery">
     <div class="gallery-heading">
       <div>
-        <p class="eyebrow"><b>04</b>Certificates</p>
-        <h2 class="d">Proof of<br>progress.</h2>
+        <p class="eyebrow"><b>04</b>Gallery</p>
+        <h2 class="d">A record of<br>the journey.</h2>
       </div>
       <p class="gallery-intro">
-        A growing collection of certifications and learning milestones.
+        Moments from internships, campus life, and the work behind the projects.
       </p>
     </div>
 
     <CircularGalleryHost
-      :items="certificates"
+      :items="gallery"
       :bend="3"
       :border-radius="0.05"
       :scroll-ease="0.05"
@@ -38,7 +38,7 @@ import CircularGalleryHost from './CircularGalleryHost.vue'
 </template>
 
 <style scoped>
-.certificate-gallery {
+.photo-gallery {
   --gallery-line: color-mix(in srgb, var(--fg) 15%, transparent);
   border-top: 1px solid var(--gallery-line);
 }

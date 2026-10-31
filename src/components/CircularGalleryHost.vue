@@ -47,7 +47,7 @@ function syncTheme() {
     import('react').then(({ default: React }) => {
       if (!disposed) reactRoot.render(React.createElement(GalleryComponent, componentProps()))
     }).catch((error) => {
-      console.error('Unable to update certificate gallery theme:', error)
+      console.error('Unable to update photo gallery theme:', error)
       loadError.value = true
     })
   }
@@ -73,7 +73,7 @@ async function loadGallery() {
       attributeFilter: ['data-theme'],
     })
   } catch (error) {
-    console.warn('Initial certificate gallery load failed; retrying without the browser cache:', error)
+    console.warn('Initial photo gallery load failed; retrying without the browser cache:', error)
 
     try {
       const [{ default: React }, { createRoot }, { default: CircularGallery }] = await Promise.all([
@@ -94,7 +94,7 @@ async function loadGallery() {
         attributeFilter: ['data-theme'],
       })
     } catch (retryError) {
-      console.error('Unable to load the certificate gallery after retry:', retryError)
+      console.error('Unable to load the photo gallery after retry:', retryError)
       loadError.value = true
     }
   }
@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
     :class="{ 'circular-gallery-host--error': loadError, 'circular-gallery-host--ready': galleryReady }"
     :role="loadError ? 'alert' : undefined"
   >
-    <p v-if="loadError">The certificate gallery could not be loaded.</p>
+    <p v-if="loadError">The photo gallery could not be loaded.</p>
   </div>
 </template>
 

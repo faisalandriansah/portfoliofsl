@@ -21,10 +21,12 @@ let ctx,
   timer,
   ro,
   refit,
+  ditherResizeTimer,
   ditherRoot,
   themeObserver,
   themeMedia,
   renderDither,
+  resizeDither,
   breathTl,
   heroObserver,
   heroVisible = true,
@@ -85,7 +87,11 @@ function mountDither() {
       });
       themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
       themeMedia.addEventListener("change", renderDither);
-      window.addEventListener("resize", renderDither);
+      resizeDither = () => {
+        window.clearTimeout(ditherResizeTimer);
+        ditherResizeTimer = window.setTimeout(renderDither, 180);
+      };
+      window.addEventListener("resize", resizeDither, { passive: true });
 
       if (animated) {
         gsap.to(ditherMount.value, {
@@ -288,7 +294,8 @@ onBeforeUnmount(() => {
   document.removeEventListener("visibilitychange", onVisibility);
   themeObserver && themeObserver.disconnect();
   themeMedia && themeMedia.removeEventListener("change", renderDither);
-  window.removeEventListener("resize", renderDither);
+  window.removeEventListener("resize", resizeDither);
+  window.clearTimeout(ditherResizeTimer);
   ditherRoot && ditherRoot.unmount();
   ro && ro.disconnect();
   window.removeEventListener("load", refit);
