@@ -1430,7 +1430,7 @@ nav #kb:hover {
 .site-footer {
   width: 100%;
   margin: 0;
-  padding: clamp(28px, 4vw, 44px) max(clamp(18px, 4vw, 64px), calc((100% - 1440px) / 2)) clamp(16px, 2vw, 22px);
+  padding: 32px max(24px, calc((100% - 1440px) / 2)) 18px;
   background: var(--bg);
   color: var(--fg);
   border-top: 1px solid var(--line);
@@ -1439,8 +1439,8 @@ nav #kb:hover {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   align-items: start;
-  gap: clamp(28px, 5vw, 40px);
-  padding-bottom: clamp(40px, 6vw, 64px);
+  gap: 40px;
+  padding-bottom: 64px;
 }
 .footer-connect {
   min-width: 0;
@@ -1462,12 +1462,11 @@ nav #kb:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 34px;
-  padding: 7px 12px;
+  padding: 7px 11px;
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--fg);
-  font-size: 12px;
+  font-size: 11px;
   text-decoration: none;
 }
 .footer-actions a:hover {
@@ -1508,10 +1507,10 @@ nav #kb:hover {
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   font-family: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
-  font-size: clamp(2.75rem, 15.5vw, 15rem);
+  font-size: clamp(4.5rem, 17vw, 16rem);
   font-weight: 800;
-  letter-spacing: -0.08em;
-  line-height: 0.8;
+  letter-spacing: -0.1em;
+  line-height: 0.76;
   white-space: nowrap;
 }
 .footer-wordmark span {
@@ -1521,7 +1520,7 @@ nav #kb:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 8px 18px;
+  gap: 18px;
   padding-top: 14px;
   color: var(--muted);
   font-family: "JetBrains Mono", ui-monospace, monospace;
@@ -2662,17 +2661,6 @@ h2,
     min-height: 100%;
     object-fit: cover;
   }
-  .footer-links {
-    grid-template-columns: minmax(0, 1fr);
-    gap: clamp(28px, 5vw, 40px);
-    padding-bottom: clamp(36px, 6vw, 52px);
-  }
-  .footer-connect h2 {
-    max-width: 28ch;
-  }
-  .footer-nav {
-    max-width: 520px;
-  }
 }
 @media (max-width: 640px) {
   .wrap {
@@ -2755,31 +2743,22 @@ h2,
   }
   .site-footer {
     width: 100%;
-    padding: clamp(32px, 8vw, 44px) clamp(16px, 5vw, 22px) clamp(20px, 5vw, 28px);
+    padding: 42px 20px 28px;
   }
   .footer-links {
-    grid-template-columns: minmax(0, 1fr);
-    gap: clamp(28px, 8vw, 36px);
-    padding-bottom: clamp(32px, 9vw, 48px);
-  }
-  .footer-connect h2 {
-    margin-bottom: 18px;
-    font-size: clamp(21px, 6.5vw, 30px);
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-bottom: 48px;
   }
   .footer-nav {
-    max-width: none;
     gap: 18px;
   }
-  .footer-actions a {
-    min-height: 38px;
-  }
   .footer-wordmark {
-    font-size: clamp(2.4rem, 15vw, 7rem);
-    line-height: 0.82;
+    font-size: clamp(3.5rem, 17vw, 7rem);
   }
   .footer-meta {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: 1fr auto;
     gap: 10px;
     line-height: 1.5;
   }
@@ -2821,30 +2800,6 @@ h2,
   }
   .pnl {
     padding: 10px;
-  }
-  .site-footer {
-    padding-inline: 14px;
-  }
-  .footer-actions {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .footer-actions a {
-    width: 100%;
-  }
-  .footer-nav {
-    gap: 14px;
-  }
-  .footer-wordmark {
-    font-size: clamp(2.2rem, 14.5vw, 3rem);
-  }
-  .footer-meta {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .footer-meta a {
-    grid-column: 1;
-    grid-row: 3;
-    justify-self: start;
   }
 }
 @media (max-width: 640px) {
